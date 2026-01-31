@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Lokesh Nalabothula — Launching Soon</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -19,76 +19,80 @@ html, body {
   width: 100%;
   height: 100%;
   background: radial-gradient(circle at top, #020617, #000);
-  overflow: hidden;
   color: white;
 }
 
 /* ===== BACKGROUND ENERGY ===== */
 .energy {
-  position: absolute;
+  position: fixed;
   inset: -50%;
   background:
     radial-gradient(circle, rgba(99,102,241,0.15), transparent 40%),
     radial-gradient(circle, rgba(168,85,247,0.12), transparent 45%);
-  animation: drift 20s infinite linear;
+  animation: spin 30s linear infinite;
+  z-index: 0;
 }
 
-@keyframes drift {
+@keyframes spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
 
 /* ===== PARTICLES ===== */
 canvas {
-  position: absolute;
+  position: fixed;
   inset: 0;
+  z-index: 1;
 }
 
-/* ===== SCENE ===== */
+/* ===== MAIN SCENE ===== */
 .scene {
   position: relative;
-  width: 100%;
-  height: 100%;
-  perspective: 1200px;
+  z-index: 2;
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 60px 20px;
 }
 
-/* ===== HERO CONTAINER ===== */
+/* ===== HERO WRAPPER ===== */
 .hero {
-  position: relative;
   display: flex;
   gap: 80px;
   align-items: center;
-  transform-style: preserve-3d;
+  max-width: 1100px;
+  width: 100%;
 }
 
-/* ===== IMAGE CORE ===== */
+/* ===== PORTRAIT (NO CROPPING) ===== */
 .portrait {
-  position: relative;
   width: 360px;
-  aspect-ratio: 3/4;
-  border-radius: 24px;
+  max-width: 90vw;
+  aspect-ratio: 3 / 4;
+  border-radius: 26px;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   box-shadow:
     0 0 120px rgba(99,102,241,0.6),
     0 0 200px rgba(168,85,247,0.35);
-  animation: pulse 6s infinite ease-in-out;
+  animation: glow 6s ease-in-out infinite;
 }
 
-@keyframes pulse {
+@keyframes glow {
   0%,100% { box-shadow: 0 0 120px rgba(99,102,241,0.6); }
-  50% { box-shadow: 0 0 180px rgba(168,85,247,0.8); }
+  50% { box-shadow: 0 0 180px rgba(168,85,247,0.9); }
 }
 
 .portrait img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain; /* 🔑 NO CROPPING */
 }
 
-/* ===== TEXT PANEL ===== */
+/* ===== TEXT BLOCK ===== */
 .info {
   max-width: 480px;
 }
@@ -103,20 +107,21 @@ canvas {
 
 .info h2 {
   margin-top: 18px;
+  font-size: 1rem;
   font-weight: 400;
   letter-spacing: 2px;
   color: #c7d2fe;
 }
 
 .info p {
-  margin-top: 32px;
+  margin-top: 28px;
   font-size: 1.15rem;
-  line-height: 1.8;
+  line-height: 1.75;
   color: #e5e7eb;
 }
 
 .status {
-  margin-top: 40px;
+  margin-top: 36px;
   display: inline-block;
   padding: 14px 34px;
   border-radius: 999px;
@@ -129,32 +134,41 @@ canvas {
 
 /* ===== FOOTER ===== */
 .footer {
-  position: absolute;
-  bottom: 24px;
-  width: 100%;
   text-align: center;
+  margin-top: 60px;
   font-size: 0.75rem;
   letter-spacing: 2px;
   color: #94a3b8;
 }
 
-/* ===== PARALLAX ===== */
-[data-depth] {
-  transition: transform 0.12s ease-out;
-}
-
-/* ===== MOBILE ===== */
+/* ===== MOBILE OPTIMIZATION ===== */
 @media (max-width: 900px) {
+
   .hero {
     flex-direction: column;
     gap: 40px;
   }
-  .info h1 {
-    font-size: 2.6rem;
-    text-align: center;
+
+  .portrait {
+    width: 280px;
+    box-shadow: 0 0 90px rgba(99,102,241,0.6);
   }
+
   .info {
     text-align: center;
+    padding: 0 10px;
+  }
+
+  .info h1 {
+    font-size: 2.3rem;
+  }
+
+  .info h2 {
+    font-size: 0.9rem;
+  }
+
+  .info p {
+    font-size: 1rem;
   }
 }
 </style>
@@ -167,12 +181,12 @@ canvas {
 
 <div class="scene">
   <div class="hero">
-    
-    <div class="portrait" data-depth="0.18">
+
+    <div class="portrait">
       <img src="hero.png" alt="Lokesh Nalabothula">
     </div>
 
-    <div class="info" data-depth="0.08">
+    <div class="info">
       <h1>Lokesh Nalabothula</h1>
       <h2>STEALTH MODE · LAUNCHING SOON</h2>
       <p>
@@ -194,17 +208,22 @@ canvas {
 /* ===== PARTICLES ===== */
 const canvas = document.getElementById("particles");
 const ctx = canvas.getContext("2d");
-canvas.width = innerWidth;
-canvas.height = innerHeight;
+
+function resize() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener("resize", resize);
 
 let particles = [];
-for (let i = 0; i < 120; i++) {
+for (let i = 0; i < 100; i++) {
   particles.push({
     x: Math.random() * canvas.width,
     y: Math.random() * canvas.height,
-    r: Math.random() * 1.6 + 0.4,
-    dx: (Math.random() - 0.5) * 0.3,
-    dy: (Math.random() - 0.5) * 0.3
+    r: Math.random() * 1.5 + 0.4,
+    dx: (Math.random() - 0.5) * 0.25,
+    dy: (Math.random() - 0.5) * 0.25
   });
 }
 
@@ -223,21 +242,6 @@ function animate() {
   requestAnimationFrame(animate);
 }
 animate();
-
-/* ===== PARALLAX ===== */
-document.addEventListener("mousemove", e => {
-  document.querySelectorAll("[data-depth]").forEach(el => {
-    const depth = el.getAttribute("data-depth");
-    const x = (window.innerWidth / 2 - e.clientX) * depth;
-    const y = (window.innerHeight / 2 - e.clientY) * depth;
-    el.style.transform = `translate(${x}px, ${y}px)`;
-  });
-});
-
-window.onresize = () => {
-  canvas.width = innerWidth;
-  canvas.height = innerHeight;
-};
 </script>
 
 </body>
