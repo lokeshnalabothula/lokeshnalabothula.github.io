@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lokesh Nalabothula — Stealth Mode</title>
+<title>Lokesh Nalabothula — Launching Soon</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600;700&display=swap" rel="stylesheet">
 
@@ -18,40 +18,33 @@
 html, body {
   width: 100%;
   height: 100%;
-  background: #020617;
+  background: radial-gradient(circle at top, #020617, #000);
   overflow: hidden;
   color: white;
 }
 
-/* ====== BACKGROUND ENERGY FIELD ====== */
-#bg {
+/* ===== BACKGROUND ENERGY ===== */
+.energy {
   position: absolute;
-  inset: 0;
+  inset: -50%;
   background:
-    radial-gradient(circle at 20% 20%, rgba(99,102,241,0.25), transparent 40%),
-    radial-gradient(circle at 80% 80%, rgba(168,85,247,0.25), transparent 40%),
-    radial-gradient(circle at center, #020617, #000);
-  filter: blur(0px);
+    radial-gradient(circle, rgba(99,102,241,0.15), transparent 40%),
+    radial-gradient(circle, rgba(168,85,247,0.12), transparent 45%);
+  animation: drift 20s infinite linear;
 }
 
-/* ====== GRID ====== */
-.grid {
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-  background-size: 60px 60px;
-  mask-image: radial-gradient(circle at center, black 30%, transparent 75%);
+@keyframes drift {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
-/* ====== PARTICLES ====== */
+/* ===== PARTICLES ===== */
 canvas {
   position: absolute;
   inset: 0;
 }
 
-/* ====== MAIN CONTAINER ====== */
+/* ===== SCENE ===== */
 .scene {
   position: relative;
   width: 100%;
@@ -62,112 +55,134 @@ canvas {
   justify-content: center;
 }
 
-/* ====== CORE GLASS MODULE ====== */
-.core {
+/* ===== HERO CONTAINER ===== */
+.hero {
   position: relative;
-  padding: 80px 90px;
-  border-radius: 28px;
-  background: linear-gradient(
-    135deg,
-    rgba(255,255,255,0.12),
-    rgba(255,255,255,0.02)
-  );
-  backdrop-filter: blur(30px);
-  border: 1px solid rgba(255,255,255,0.15);
-  box-shadow:
-    0 0 120px rgba(99,102,241,0.35),
-    inset 0 0 80px rgba(255,255,255,0.05);
+  display: flex;
+  gap: 80px;
+  align-items: center;
   transform-style: preserve-3d;
-  animation: appear 1.6s ease forwards;
 }
 
-@keyframes appear {
-  from {
-    opacity: 0;
-    transform: translateY(60px) rotateX(12deg);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) rotateX(0deg);
-  }
+/* ===== IMAGE CORE ===== */
+.portrait {
+  position: relative;
+  width: 360px;
+  aspect-ratio: 3/4;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow:
+    0 0 120px rgba(99,102,241,0.6),
+    0 0 200px rgba(168,85,247,0.35);
+  animation: pulse 6s infinite ease-in-out;
 }
 
-/* ====== TEXT ====== */
-.core h1 {
-  font-size: 3.8rem;
+@keyframes pulse {
+  0%,100% { box-shadow: 0 0 120px rgba(99,102,241,0.6); }
+  50% { box-shadow: 0 0 180px rgba(168,85,247,0.8); }
+}
+
+.portrait img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ===== TEXT PANEL ===== */
+.info {
+  max-width: 480px;
+}
+
+.info h1 {
+  font-size: 3.6rem;
   font-weight: 700;
-  letter-spacing: 1px;
   background: linear-gradient(90deg, #38bdf8, #a855f7);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-.core h2 {
+.info h2 {
   margin-top: 18px;
   font-weight: 400;
+  letter-spacing: 2px;
   color: #c7d2fe;
-  letter-spacing: 1.5px;
 }
 
-.core p {
-  margin-top: 34px;
+.info p {
+  margin-top: 32px;
   font-size: 1.15rem;
-  color: #e5e7eb;
   line-height: 1.8;
-  max-width: 520px;
+  color: #e5e7eb;
 }
 
-/* ====== STATUS CHIP ====== */
 .status {
-  margin-top: 45px;
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
+  margin-top: 40px;
+  display: inline-block;
   padding: 14px 34px;
   border-radius: 999px;
-  background: rgba(99,102,241,0.2);
+  background: rgba(99,102,241,0.25);
   border: 1px solid rgba(99,102,241,0.5);
   box-shadow: 0 0 40px rgba(99,102,241,0.7);
   letter-spacing: 2px;
   font-size: 0.9rem;
 }
 
-/* ====== FOOTER ====== */
+/* ===== FOOTER ===== */
 .footer {
   position: absolute;
-  bottom: 26px;
+  bottom: 24px;
   width: 100%;
   text-align: center;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   letter-spacing: 2px;
   color: #94a3b8;
 }
 
-/* ====== PARALLAX ====== */
+/* ===== PARALLAX ===== */
 [data-depth] {
-  transition: transform 0.15s ease-out;
+  transition: transform 0.12s ease-out;
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 900px) {
+  .hero {
+    flex-direction: column;
+    gap: 40px;
+  }
+  .info h1 {
+    font-size: 2.6rem;
+    text-align: center;
+  }
+  .info {
+    text-align: center;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<div id="bg"></div>
-<div class="grid"></div>
+<div class="energy"></div>
 <canvas id="particles"></canvas>
 
 <div class="scene">
-  <div class="core" data-depth="0.12">
-    <h1>Lokesh Nalabothula</h1>
-    <h2>STEALTH MODE · SYSTEM INITIALIZING</h2>
-    <p>
-      A next-generation personal platform is under construction.<br><br>
-      Engineering · Cybersecurity · AI · Applied Intelligence<br>
-      Designed for depth. Built for impact.
-    </p>
-    <div class="status">
-      ⦿ LAUNCH SEQUENCE IN PROGRESS
+  <div class="hero">
+    
+    <div class="portrait" data-depth="0.18">
+      <img src="hero.png" alt="Lokesh Nalabothula">
     </div>
+
+    <div class="info" data-depth="0.08">
+      <h1>Lokesh Nalabothula</h1>
+      <h2>STEALTH MODE · LAUNCHING SOON</h2>
+      <p>
+        A next-generation personal platform is under construction.<br><br>
+        AI · Cybersecurity · Engineering · Applied Intelligence<br>
+        Built with intent. Designed for impact.
+      </p>
+      <div class="status">⦿ SYSTEM INITIALIZING</div>
+    </div>
+
   </div>
 </div>
 
@@ -176,24 +191,24 @@ canvas {
 </div>
 
 <script>
-/* ====== PARTICLE FIELD ====== */
+/* ===== PARTICLES ===== */
 const canvas = document.getElementById("particles");
 const ctx = canvas.getContext("2d");
 canvas.width = innerWidth;
 canvas.height = innerHeight;
 
 let particles = [];
-for (let i = 0; i < 140; i++) {
+for (let i = 0; i < 120; i++) {
   particles.push({
     x: Math.random() * canvas.width,
     y: Math.random() * canvas.height,
-    r: Math.random() * 1.8 + 0.3,
-    dx: (Math.random() - 0.5) * 0.25,
-    dy: (Math.random() - 0.5) * 0.25
+    r: Math.random() * 1.6 + 0.4,
+    dx: (Math.random() - 0.5) * 0.3,
+    dy: (Math.random() - 0.5) * 0.3
   });
 }
 
-function draw() {
+function animate() {
   ctx.clearRect(0,0,canvas.width,canvas.height);
   ctx.fillStyle = "rgba(168,85,247,0.7)";
   particles.forEach(p => {
@@ -205,11 +220,11 @@ function draw() {
     ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
     ctx.fill();
   });
-  requestAnimationFrame(draw);
+  requestAnimationFrame(animate);
 }
-draw();
+animate();
 
-/* ====== PARALLAX ====== */
+/* ===== PARALLAX ===== */
 document.addEventListener("mousemove", e => {
   document.querySelectorAll("[data-depth]").forEach(el => {
     const depth = el.getAttribute("data-depth");
