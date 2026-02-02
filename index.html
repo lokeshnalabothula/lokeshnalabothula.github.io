@@ -1,248 +1,29 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Lokesh Nalabothula — Launching Soon</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lokesh Nalabothula | Digital Universe</title>
+    <meta name="description" content="Personal digital universe of Lokesh Nalabothula - Student, Creator, Founder, Engineer. Explore different facets of my journey." />
+    <meta name="author" content="Lokesh Nalabothula" />
+    <meta name="keywords" content="Lokesh Nalabothula, developer, creator, founder, Lazy Nerds, YouTuber, editor" />
 
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <meta property="og:title" content="Lokesh Nalabothula | Digital Universe" />
+    <meta property="og:description" content="A living, evolving digital identity. Student. Creator. Founder. Engineer. Still building." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+    <meta property="og:url" content="https://lokeshnalabothula.in" />
 
-<style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Space Grotesk', sans-serif;
-}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Lokesh Nalabothula | Digital Universe" />
+    <meta name="twitter:description" content="A living, evolving digital identity. Student. Creator. Founder. Engineer. Still building." />
+    <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
 
-html, body {
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(circle at top, #020617, #000);
-  color: white;
-}
+    <link rel="canonical" href="https://lokeshnalabothula.in" />
+  </head>
 
-/* ===== BACKGROUND ENERGY ===== */
-.energy {
-  position: fixed;
-  inset: -50%;
-  background:
-    radial-gradient(circle, rgba(99,102,241,0.15), transparent 40%),
-    radial-gradient(circle, rgba(168,85,247,0.12), transparent 45%);
-  animation: spin 30s linear infinite;
-  z-index: 0;
-}
-
-@keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-/* ===== PARTICLES ===== */
-canvas {
-  position: fixed;
-  inset: 0;
-  z-index: 1;
-}
-
-/* ===== MAIN SCENE ===== */
-.scene {
-  position: relative;
-  z-index: 2;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 60px 20px;
-}
-
-/* ===== HERO WRAPPER ===== */
-.hero {
-  display: flex;
-  gap: 80px;
-  align-items: center;
-  max-width: 1100px;
-  width: 100%;
-}
-
-/* ===== PORTRAIT (NO CROPPING) ===== */
-.portrait {
-  width: 360px;
-  max-width: 90vw;
-  aspect-ratio: 3 / 4;
-  border-radius: 26px;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow:
-    0 0 120px rgba(99,102,241,0.6),
-    0 0 200px rgba(168,85,247,0.35);
-  animation: glow 6s ease-in-out infinite;
-}
-
-@keyframes glow {
-  0%,100% { box-shadow: 0 0 120px rgba(99,102,241,0.6); }
-  50% { box-shadow: 0 0 180px rgba(168,85,247,0.9); }
-}
-
-.portrait img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain; /* 🔑 NO CROPPING */
-}
-
-/* ===== TEXT BLOCK ===== */
-.info {
-  max-width: 480px;
-}
-
-.info h1 {
-  font-size: 3.6rem;
-  font-weight: 700;
-  background: linear-gradient(90deg, #38bdf8, #a855f7);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.info h2 {
-  margin-top: 18px;
-  font-size: 1rem;
-  font-weight: 400;
-  letter-spacing: 2px;
-  color: #c7d2fe;
-}
-
-.info p {
-  margin-top: 28px;
-  font-size: 1.15rem;
-  line-height: 1.75;
-  color: #e5e7eb;
-}
-
-.status {
-  margin-top: 36px;
-  display: inline-block;
-  padding: 14px 34px;
-  border-radius: 999px;
-  background: rgba(99,102,241,0.25);
-  border: 1px solid rgba(99,102,241,0.5);
-  box-shadow: 0 0 40px rgba(99,102,241,0.7);
-  letter-spacing: 2px;
-  font-size: 0.9rem;
-}
-
-/* ===== FOOTER ===== */
-.footer {
-  text-align: center;
-  margin-top: 60px;
-  font-size: 0.75rem;
-  letter-spacing: 2px;
-  color: #94a3b8;
-}
-
-/* ===== MOBILE OPTIMIZATION ===== */
-@media (max-width: 900px) {
-
-  .hero {
-    flex-direction: column;
-    gap: 40px;
-  }
-
-  .portrait {
-    width: 280px;
-    box-shadow: 0 0 90px rgba(99,102,241,0.6);
-  }
-
-  .info {
-    text-align: center;
-    padding: 0 10px;
-  }
-
-  .info h1 {
-    font-size: 2.3rem;
-  }
-
-  .info h2 {
-    font-size: 0.9rem;
-  }
-
-  .info p {
-    font-size: 1rem;
-  }
-}
-</style>
-</head>
-
-<body>
-
-<div class="energy"></div>
-<canvas id="particles"></canvas>
-
-<div class="scene">
-  <div class="hero">
-
-    <div class="portrait">
-      <img src="hero.png" alt="Lokesh Nalabothula">
-    </div>
-
-    <div class="info">
-      <h1>Lokesh Nalabothula</h1>
-      <h2>STEALTH MODE · LAUNCHING SOON</h2>
-      <p>
-        A next-generation personal platform is under construction.<br><br>
-        AI · Cybersecurity · Engineering · Applied Intelligence<br>
-        Built with intent. Designed for impact.
-      </p>
-      <div class="status">⦿ SYSTEM INITIALIZING</div>
-    </div>
-
-  </div>
-</div>
-
-<div class="footer">
-  © 2026 — PRIVATE BUILD · ACCESS SOON
-</div>
-
-<script>
-/* ===== PARTICLES ===== */
-const canvas = document.getElementById("particles");
-const ctx = canvas.getContext("2d");
-
-function resize() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-}
-resize();
-window.addEventListener("resize", resize);
-
-let particles = [];
-for (let i = 0; i < 100; i++) {
-  particles.push({
-    x: Math.random() * canvas.width,
-    y: Math.random() * canvas.height,
-    r: Math.random() * 1.5 + 0.4,
-    dx: (Math.random() - 0.5) * 0.25,
-    dy: (Math.random() - 0.5) * 0.25
-  });
-}
-
-function animate() {
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-  ctx.fillStyle = "rgba(168,85,247,0.7)";
-  particles.forEach(p => {
-    p.x += p.dx;
-    p.y += p.dy;
-    if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
-    if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
-    ctx.beginPath();
-    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-    ctx.fill();
-  });
-  requestAnimationFrame(animate);
-}
-animate();
-</script>
-
-</body>
+  <body class="dark">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
 </html>
